@@ -15,12 +15,6 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.3"
   },
-   "lint-staged": {
-   "src/**/*.{js,jsx,json,css}": [
-   "prettier --single-quote --write",
-    "git add"
-   ]
- },
   "scripts": {
     "precommit": "lint-staged",
     "start": "react-scripts start",
@@ -29,6 +23,12 @@
     "eject": "react-scripts eject",
     "lint:js": "eslint src/**/*.{js,jsx}"
   },
+   "lint-staged": {
+   "src/**/*.{js,jsx,json,css}": [
+   "prettier --single-quote --write",
+    "git add"
+   ]
+ },
   "eslintConfig": {
     "extends": [
       "react-app",
