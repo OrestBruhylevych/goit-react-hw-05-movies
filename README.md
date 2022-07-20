@@ -71,3 +71,6 @@ githooks, ніби вони є скриптами npm. lint-stagedдозволя
 
 Далі ви можете інтегрувати Prettier у свій улюблений редактор. Прочитайте розділ
 про інтеграцію редактора на сторінці Prettier GitHub.
+
+https://github.com/luxplanjay/fe-03-react#formatting-code-automatically
+https://github.com/goitacademy/react-lint-staged-workshop
