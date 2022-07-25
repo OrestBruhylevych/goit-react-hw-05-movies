@@ -9,11 +9,7 @@ export default function MovieCard({
 }) {
   return (
     <div id={id}>
-      <img
-        src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${url}`}
-        alt="Poster movie"
-        width="340"
-      />
+      <img src={`https://image.tmdb.org/t/p/w500${url}`} alt="Poster movie" />
       <h1>
         {title} ({date}){' '}
       </h1>

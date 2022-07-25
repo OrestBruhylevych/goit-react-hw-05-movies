@@ -1,7 +1,7 @@
 import MovieCard from 'components/MovieCard/MovieCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
 
 import { getMovieDetails } from '../services/api';
 
@@ -15,9 +15,11 @@ export default function MovieDetails() {
     });
   }, [movieId]);
 
+  console.log(movie);
   const {
     id,
     backdrop_path,
+
     title,
     genres,
     overview,
@@ -36,6 +38,19 @@ export default function MovieDetails() {
         vote_average={vote_average}
         date={release_date}
       />
+
+      <div>
+        <p>Additional information</p>
+        <ul>
+          <li>
+            <NavLink to="cast">Cast</NavLink>
+          </li>
+          <li>
+            <NavLink to="reviews">Reviews</NavLink>
+          </li>
+        </ul>
+      </div>
+      <Outlet />
     </>
   );
 }
