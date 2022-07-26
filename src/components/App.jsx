@@ -1,27 +1,17 @@
 import Home from 'pages/Home';
 import MovieDetails from 'pages/MovieDetails';
 import Movies from 'pages/Movies';
-import { Routes, Route, NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import { Routes, Route } from 'react-router-dom';
+
+import { GlobalStyle } from './GlobalStyle';
 import CastList from './CastList/CastList';
+import PagesNavigation from './PagesNavigation/PagesNavigation';
 import ReviewsList from './ReviewsList/ReviewsList';
-
-const StyledLink = styled(NavLink)`
-  color: black;
-
-  &.active {
-    color: orange;
-  }
-`;
 
 export const App = () => {
   return (
-    <div>
-      <nav>
-        <StyledLink to="/"> Home </StyledLink>
-        <StyledLink to="/movies"> Movies </StyledLink>
-      </nav>
-
+    <>
+      <PagesNavigation />
       <Routes>
         <Route path="/" element={<Home />} />
 
@@ -34,6 +24,7 @@ export const App = () => {
 
         <Route path="*" element={<Home />} />
       </Routes>
-    </div>
+      <GlobalStyle />
+    </>
   );
 };

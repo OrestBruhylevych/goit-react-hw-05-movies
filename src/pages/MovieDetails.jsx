@@ -1,13 +1,18 @@
+import { BackLink } from 'components/BackLink/BackLink';
+import { Box } from 'components/Box/Box';
+import { Conteiner } from 'components/GlobalStyle';
 import MovieCard from 'components/MovieCard/MovieCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
 
 import { getMovieDetails } from '../services/api';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
     getMovieDetails(movieId).then(res => {
@@ -15,11 +20,9 @@ export default function MovieDetails() {
     });
   }, [movieId]);
 
-  console.log(movie);
   const {
     id,
     backdrop_path,
-
     title,
     genres,
     overview,
@@ -28,7 +31,9 @@ export default function MovieDetails() {
   } = movie;
 
   return (
-    <>
+    <Conteiner>
+      <BackLink to={backLinkHref}>Back</BackLink>
+
       <MovieCard
         id={id}
         url={backdrop_path}
@@ -39,18 +44,22 @@ export default function MovieDetails() {
         date={release_date}
       />
 
-      <div>
+      <Box p={4} border="1px solid black">
         <p>Additional information</p>
         <ul>
           <li>
-            <NavLink to="cast">Cast</NavLink>
+            <NavLink to="cast" state={{ from: location.state.from }}>
+              Cast
+            </NavLink>
           </li>
           <li>
-            <NavLink to="reviews">Reviews</NavLink>
+            <NavLink to="reviews" state={{ from: location.state.from }}>
+              Reviews
+            </NavLink>
           </li>
         </ul>
-      </div>
+      </Box>
       <Outlet />
-    </>
+    </Conteiner>
   );
 }
