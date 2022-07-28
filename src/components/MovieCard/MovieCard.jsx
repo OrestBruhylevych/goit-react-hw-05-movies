@@ -1,5 +1,6 @@
 import { Box } from 'components/Box/Box';
 import { MovieCardStyled } from './MovieCard.styled';
+import PropTypes from 'prop-types';
 
 export default function MovieCard({
   id,
@@ -35,3 +36,13 @@ export default function MovieCard({
     </MovieCardStyled>
   );
 }
+
+MovieCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  url: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  genres: PropTypes.array.isRequired,
+  overview: PropTypes.string.isRequired,
+  vote_average: PropTypes.number.isRequired,
+  date: PropTypes.string.isRequired,
+};

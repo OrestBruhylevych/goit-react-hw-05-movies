@@ -1,4 +1,5 @@
 import MoviesListItem from './MoviesListItem';
+import PropTypes from 'prop-types';
 
 export default function MoviesList({ movies }) {
   const moviesItem = movies.map(movie => {
@@ -9,3 +10,7 @@ export default function MoviesList({ movies }) {
 
   return <ol>{moviesItem}</ol>;
 }
+
+MoviesList.propTypes = {
+  movies: PropTypes.array.isRequired,
+};

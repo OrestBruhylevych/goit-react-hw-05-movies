@@ -2,15 +2,16 @@ import { BackLink } from 'components/BackLink/BackLink';
 import { Box } from 'components/Box/Box';
 import { Conteiner } from 'components/GlobalStyle';
 import MovieCard from 'components/MovieCard/MovieCard';
-import { useState } from 'react';
+import { StyledLink } from 'components/PagesNavigation/PagesNavigation.styled';
+import { Suspense, useState } from 'react';
 import { useEffect } from 'react';
-import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 
 import { getMovieDetails } from '../services/api';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState(null);
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
 
@@ -19,6 +20,10 @@ export default function MovieDetails() {
       setMovie(res);
     });
   }, [movieId]);
+
+  if (!movie) {
+    return;
+  }
 
   const {
     id,
@@ -46,20 +51,23 @@ export default function MovieDetails() {
 
       <Box p={4} border="1px solid black">
         <p>Additional information</p>
-        <ul>
+        <Box as="ul" display="flex" mt="10px">
           <li>
-            <NavLink to="cast" state={{ from: location.state.from }}>
+            <StyledLink to="cast" state={{ from: location.state.from }}>
               Cast
-            </NavLink>
+            </StyledLink>
           </li>
           <li>
-            <NavLink to="reviews" state={{ from: location.state.from }}>
+            <StyledLink to="reviews" state={{ from: location.state.from }}>
               Reviews
-            </NavLink>
+            </StyledLink>
           </li>
-        </ul>
+        </Box>
       </Box>
-      <Outlet />
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </Conteiner>
   );
 }

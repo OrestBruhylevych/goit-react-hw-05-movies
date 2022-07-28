@@ -1,9 +1,11 @@
 import MoviesList from 'components/MoviesList/MoviesList';
 import { useSearchParams } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import Notiflix from 'notiflix';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { getMoviesSearhQuery } from '../services/api';
+import { Conteiner } from 'components/GlobalStyle';
+import SearchBar from 'components/SearchBar/SearchBar';
 
 export default function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,27 +15,20 @@ export default function Movies() {
 
   useEffect(() => {
     if (query) {
-      getMoviesSearhQuery(query).then(res => setMovies(res));
+      getMoviesSearhQuery(query).then(res => {
+        if (res.length === 0 && query) {
+          setSearchParams({});
+          Notiflix.Notify.failure('Not found movie this name!!!');
+        }
+        setMovies(res);
+      });
     }
-  }, [query]);
+  }, [query, setSearchParams]);
 
   return (
-    <>
-      <Formik
-        initialValues={{ query: '' }}
-        onSubmit={(values, actions) => {
-          setSearchParams(query !== '' ? { query: values.query } : {});
-          //  actions.resetForm();
-        }}
-      >
-        <Form>
-          <Field type="text" name="query" />
-          <ErrorMessage name="query" component="div" />
-          <button type="submit">Submit</button>
-        </Form>
-      </Formik>
-
+    <Conteiner>
+      <SearchBar setSearchParams={setSearchParams} />
       {query && <MoviesList movies={movies} />}
-    </>
+    </Conteiner>
   );
 }

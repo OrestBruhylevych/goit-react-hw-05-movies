@@ -1,7 +1,9 @@
+import { Box } from 'components/Box/Box';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieReviews } from '../../services/api';
+import { ReviewsListItemStyled } from './ReviewsList.styled';
 
 export default function ReviewsList() {
   const { movieId } = useParams();
@@ -14,15 +16,15 @@ export default function ReviewsList() {
   return reviews.length === 0 ? (
     "We don't have any reviews for this movie."
   ) : (
-    <ul>
+    <Box as="ul" mt="20px">
       {reviews.map(({ author, id, content }) => {
         return (
-          <li key={id}>
+          <ReviewsListItemStyled key={id}>
             <h2>Author: {author}.</h2>
             <p>{content}</p>
-          </li>
+          </ReviewsListItemStyled>
         );
       })}
-    </ul>
+    </Box>
   );
 }

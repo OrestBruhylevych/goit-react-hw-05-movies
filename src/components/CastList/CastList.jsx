@@ -1,31 +1,46 @@
+import { Box } from 'components/Box/Box';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { getMovieCredits } from '../../services/api';
+import { CastListItemStyled } from './CastList.styled';
 
 export default function CastList() {
   const { movieId } = useParams();
-  const [cast, setCast] = useState([]);
+  const [cast, setCast] = useState(null);
 
   useEffect(() => {
     getMovieCredits(movieId).then(({ cast }) => setCast(cast));
   }, [movieId]);
 
+  if (!cast) {
+    return;
+  }
+
   return (
-    <ul>
-      {cast.map(({ character, id, name, profile_path }) => {
+    <Box as="ul" mt="20px">
+      {cast.map(({ character, name, profile_path }) => {
+        let baseUrl = 'https://image.tmdb.org/t/p/w500';
+
+        if (!profile_path) {
+          baseUrl =
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Anonymous.svg/1481px-Anonymous.svg.png';
+          profile_path = '';
+        }
+
         return (
-          <li key={id}>
+          <CastListItemStyled key={name}>
             <img
-              src={`https://image.tmdb.org/t/p/w500${profile_path}`}
+              src={`${baseUrl}${profile_path}`}
               alt="photo_profile"
+              width={500}
             />
             <p>{name}</p>
             <p>Character: {character}</p>
-          </li>
+          </CastListItemStyled>
         );
       })}
-    </ul>
+    </Box>
   );
 }
