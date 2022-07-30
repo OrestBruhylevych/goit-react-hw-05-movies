@@ -12,7 +12,9 @@ export default function ReviewsList() {
   useEffect(() => {
     getMovieReviews(movieId)
       .then(res => setReviews(res.results))
-      .catch(e => console.log(e));
+      .catch(() => {
+        window.location = '/goit-react-hw-05-movies/';
+      });
   }, [movieId]);
 
   return reviews.length === 0 ? (

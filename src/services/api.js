@@ -12,7 +12,7 @@ export async function getMoviesSearhQuery(searhQuery) {
 }
 
 export async function getTrending() {
-  const response = await axios.get(`/trending/all/day?api_key=${API_KEY}`);
+  const response = await axios.get(`trending/movie/day?api_key=${API_KEY}`);
   const trendingMoviesArray = response.data.results;
   return trendingMoviesArray;
 }

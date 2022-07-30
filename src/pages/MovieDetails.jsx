@@ -13,6 +13,7 @@ export default function MovieDetails() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
+
   const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
@@ -20,7 +21,10 @@ export default function MovieDetails() {
       .then(res => {
         setMovie(res);
       })
-      .catch(e => console.log(e));
+      .catch(e => {
+        console.log(e);
+        window.location = '/goit-react-hw-05-movies/';
+      });
   }, [movieId]);
 
   if (!movie) {

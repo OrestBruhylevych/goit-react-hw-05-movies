@@ -13,7 +13,9 @@ export default function CastList() {
   useEffect(() => {
     getMovieCredits(movieId)
       .then(({ cast }) => setCast(cast))
-      .catch(e => console.log(e));
+      .catch(() => {
+        window.location = '/goit-react-hw-05-movies/';
+      });
   }, [movieId]);
 
   if (!cast) {

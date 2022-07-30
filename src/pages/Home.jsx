@@ -11,7 +11,9 @@ export default function Home() {
   useEffect(() => {
     getTrending()
       .then(res => setMovies(res))
-      .catch(e => console.log(e));
+      .catch(() => {
+        window.location = '/goit-react-hw-05-movies/';
+      });
   }, []);
 
   return (
