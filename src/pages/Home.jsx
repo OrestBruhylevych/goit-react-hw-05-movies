@@ -9,7 +9,9 @@ export default function Home() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    getTrending().then(res => setMovies(res));
+    getTrending()
+      .then(res => setMovies(res))
+      .catch(e => console.log(e));
   }, []);
 
   return (

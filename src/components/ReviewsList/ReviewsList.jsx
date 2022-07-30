@@ -10,7 +10,9 @@ export default function ReviewsList() {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    getMovieReviews(movieId).then(res => setReviews(res.results));
+    getMovieReviews(movieId)
+      .then(res => setReviews(res.results))
+      .catch(e => console.log(e));
   }, [movieId]);
 
   return reviews.length === 0 ? (

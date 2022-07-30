@@ -16,9 +16,11 @@ export default function MovieDetails() {
   const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
-    getMovieDetails(movieId).then(res => {
-      setMovie(res);
-    });
+    getMovieDetails(movieId)
+      .then(res => {
+        setMovie(res);
+      })
+      .catch(e => console.log(e));
   }, [movieId]);
 
   if (!movie) {
@@ -53,12 +55,12 @@ export default function MovieDetails() {
         <p>Additional information</p>
         <Box as="ul" display="flex" mt="10px">
           <li>
-            <StyledLink to="cast" state={{ from: location.state.from }}>
+            <StyledLink to="cast" state={{ from: backLinkHref }}>
               Cast
             </StyledLink>
           </li>
           <li>
-            <StyledLink to="reviews" state={{ from: location.state.from }}>
+            <StyledLink to="reviews" state={{ from: backLinkHref }}>
               Reviews
             </StyledLink>
           </li>

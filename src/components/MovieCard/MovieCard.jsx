@@ -11,9 +11,17 @@ export default function MovieCard({
   vote_average,
   date,
 }) {
+  let baseUrl = 'https://image.tmdb.org/t/p/w500';
+
+  if (!url) {
+    baseUrl =
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Anonymous.svg/1481px-Anonymous.svg.png';
+    url = '';
+  }
+
   return (
     <MovieCardStyled id={id}>
-      <img src={`https://image.tmdb.org/t/p/w500${url}`} alt="Poster movie" />
+      <img src={`${baseUrl}${url}`} alt="Poster movie" />
       <Box p={4}>
         <h1>
           {title} ({date})
@@ -39,7 +47,7 @@ export default function MovieCard({
 
 MovieCard.propTypes = {
   id: PropTypes.number.isRequired,
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
   title: PropTypes.string.isRequired,
   genres: PropTypes.array.isRequired,
   overview: PropTypes.string.isRequired,

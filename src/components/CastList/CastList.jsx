@@ -11,7 +11,9 @@ export default function CastList() {
   const [cast, setCast] = useState(null);
 
   useEffect(() => {
-    getMovieCredits(movieId).then(({ cast }) => setCast(cast));
+    getMovieCredits(movieId)
+      .then(({ cast }) => setCast(cast))
+      .catch(e => console.log(e));
   }, [movieId]);
 
   if (!cast) {

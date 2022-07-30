@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 export default function MoviesList({ movies }) {
   const moviesItem = movies.map(movie => {
-    const { id, title } = movie;
+    const { id, title, original_title } = movie;
 
-    return <MoviesListItem key={id} id={id} title={title} />;
+    return <MoviesListItem key={id} id={id} title={original_title || title} />;
   });
 
   return <ol>{moviesItem}</ol>;

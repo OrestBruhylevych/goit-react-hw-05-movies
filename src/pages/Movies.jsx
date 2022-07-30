@@ -15,13 +15,15 @@ export default function Movies() {
 
   useEffect(() => {
     if (query) {
-      getMoviesSearhQuery(query).then(res => {
-        if (res.length === 0 && query) {
-          setSearchParams({});
-          Notiflix.Notify.failure('Not found movie this name!!!');
-        }
-        setMovies(res);
-      });
+      getMoviesSearhQuery(query)
+        .then(res => {
+          if (res.length === 0 && query) {
+            setSearchParams({});
+            Notiflix.Notify.failure('Not found movie this name!!!');
+          }
+          setMovies(res);
+        })
+        .catch(e => console.log(e));
     }
   }, [query, setSearchParams]);
 

@@ -1,4 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import Notiflix from 'notiflix';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 
@@ -12,7 +13,11 @@ export default function SearchBar({ setSearchParams }) {
       initialValues={{ query: '' }}
       validationSchema={validationSchema}
       onSubmit={(values, actions) => {
-        setSearchParams(values.query !== '' ? { query: values.query } : {});
+        const query = values.query.trim();
+        if (query === '') {
+          Notiflix.Notify.warning('Enter the name of the movie!!!');
+        }
+        setSearchParams(query !== '' ? { query } : {});
         //  actions.resetForm();
       }}
     >

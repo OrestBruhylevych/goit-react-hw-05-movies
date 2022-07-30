@@ -1,14 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { GlobalStyle } from './GlobalStyle';
-import CastList from './CastList/CastList';
 import PagesNavigation from './PagesNavigation/PagesNavigation';
-import ReviewsList from './ReviewsList/ReviewsList';
 import { lazy, Suspense } from 'react';
 
 const Home = lazy(() => import('../pages/Home'));
 const MovieDetails = lazy(() => import('../pages/MovieDetails'));
 const Movies = lazy(() => import('../pages/Movies'));
+const CastList = lazy(() => import('./CastList/CastList'));
+const ReviewsList = lazy(() => import('./ReviewsList/ReviewsList'));
 
 export const App = () => {
   return (
