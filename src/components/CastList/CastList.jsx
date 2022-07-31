@@ -1,7 +1,7 @@
 import { Box } from 'components/Box/Box';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { getMovieCredits } from '../../services/api';
 import { CastListItemStyled } from './CastList.styled';
@@ -9,14 +9,15 @@ import { CastListItemStyled } from './CastList.styled';
 export default function CastList() {
   const { movieId } = useParams();
   const [cast, setCast] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getMovieCredits(movieId)
       .then(({ cast }) => setCast(cast))
-      .catch(() => {
-        window.location = '/goit-react-hw-05-movies/';
+      .catch(e => {
+        navigate('/', { replace: true });
       });
-  }, [movieId]);
+  }, [movieId, navigate]);
 
   if (!cast) {
     return;

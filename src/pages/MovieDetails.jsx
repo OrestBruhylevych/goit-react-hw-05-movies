@@ -5,7 +5,7 @@ import MovieCard from 'components/MovieCard/MovieCard';
 import { StyledLink } from 'components/PagesNavigation/PagesNavigation.styled';
 import { Suspense, useState } from 'react';
 import { useEffect } from 'react';
-import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { getMovieDetails } from '../services/api';
 
@@ -13,6 +13,7 @@ export default function MovieDetails() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const backLinkHref = location.state?.from ?? '/';
 
@@ -22,10 +23,9 @@ export default function MovieDetails() {
         setMovie(res);
       })
       .catch(e => {
-        console.log(e);
-        window.location = '/goit-react-hw-05-movies/';
+        navigate('/', { replace: true });
       });
-  }, [movieId]);
+  }, [movieId, navigate]);
 
   if (!movie) {
     return;

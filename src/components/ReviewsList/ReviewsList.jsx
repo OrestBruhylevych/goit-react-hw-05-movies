@@ -1,21 +1,22 @@
 import { Box } from 'components/Box/Box';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getMovieReviews } from '../../services/api';
 import { ReviewsListItemStyled } from './ReviewsList.styled';
 
 export default function ReviewsList() {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getMovieReviews(movieId)
       .then(res => setReviews(res.results))
-      .catch(() => {
-        window.location = '/goit-react-hw-05-movies/';
+      .catch(e => {
+        navigate('/', { replace: true });
       });
-  }, [movieId]);
+  }, [movieId, navigate]);
 
   return reviews.length === 0 ? (
     "We don't have any reviews for this movie."

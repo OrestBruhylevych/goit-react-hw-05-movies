@@ -1,5 +1,5 @@
 import MoviesList from 'components/MoviesList/MoviesList';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Notiflix from 'notiflix';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -10,6 +10,7 @@ import SearchBar from 'components/SearchBar/SearchBar';
 export default function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
 
   const query = searchParams.get('query');
 
@@ -24,10 +25,10 @@ export default function Movies() {
           setMovies(res);
         })
         .catch(() => {
-          window.location = '/goit-react-hw-05-movies/';
+          navigate('/', { replace: true });
         });
     }
-  }, [query, setSearchParams]);
+  }, [query, setSearchParams, navigate]);
 
   return (
     <Conteiner>

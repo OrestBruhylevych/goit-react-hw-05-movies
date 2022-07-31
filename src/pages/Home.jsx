@@ -4,17 +4,21 @@ import { useState } from 'react';
 import { getTrending } from '../services/api';
 
 import { Conteiner } from '../components/GlobalStyle';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getTrending()
-      .then(res => setMovies(res))
+      .then(res => {
+        setMovies(res);
+      })
       .catch(() => {
-        window.location = '/goit-react-hw-05-movies/';
+        navigate('/', { replace: true });
       });
-  }, []);
+  }, [navigate]);
 
   return (
     <Conteiner>
